@@ -1,0 +1,58 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B0B0F">
+  <meta name="description" content="Kuip — find opportunities, useful resources, and your community.">
+
+  <title>{% block title %}Kuip — discover what matters{% endblock %}</title>
+
+  <link rel="icon" type="image/svg+xml" href="{% static 'images/kuip-icon.svg' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{% url 'home' %}" aria-label="Kuip home">
+      <svg
+        class="brand-symbol"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 48 48"
+        aria-hidden="true"
+      >
+        <path
+          d="M8 25 L8 20 L25 3 L37 3 L14 26 Q11 29 8 25Z"
+          fill="currentColor"
+        />
+        <path
+          d="M20 29 L27 22 L41 36 Q45 40 41 43 Q38 46 34 42Z"
+          fill="currentColor"
+        />
+      </svg>
+
+      <span class="brand-name">kuip<span class="brand-dot">.</span></span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="{% url 'home' %}">Explore</a>
+      <a class="nav-cta" href="{% url 'create_post' %}">＋ Create post</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="notice">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    A community-powered place to find what you need.
+  </footer>
+</body>
+</html>

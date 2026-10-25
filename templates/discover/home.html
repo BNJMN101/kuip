@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Explore — Kuip{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="eyebrow"><span class="pulse"></span> YOUR COMMUNITY, IN ONE PLACE</div>
+  <h1>Find what you need.<br><span class="muted-heading">Share what you know.</span></h1>
+  <p class="hero-copy">Opportunities, useful resources, and requests from people around you.</p>
+  <a class="button-dark" href="{% url 'create_post' %}">＋ Share something</a>
+</section>
+
+<section class="feed-section">
+  <div class="section-head">
+    <div><p class="eyebrow">THE COMMUNITY BOARD</p><h2>Explore the feed</h2></div>
+    <span class="result-count">{{ posts|length }} post{{ posts|length|pluralize }}</span>
+  </div>
+
+  <form class="search-form" method="get">
+    <span class="search-icon">⌕</span>
+    <input type="search" name="q" value="{{ query }}" placeholder="Search opportunities, services, requests...">
+    {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
+    <button type="submit">Search</button>
+  </form>
+
+  <div class="filters">
+    <a class="filter {% if not selected_category %}active{% endif %}" href="{% url 'home' %}{% if query %}?q={{ query|urlencode }}{% endif %}">Everything</a>
+    {% for value,label in categories %}
+      <a class="filter {% if selected_category == value %}active{% endif %}" href="?category={{ value }}{% if query %}&q={{ query|urlencode }}{% endif %}">
+        {% if value == "opportunity" %}✦{% elif value == "discover" %}◈{% else %}↗{% endif %} {{ label }}
+      </a>
+    {% endfor %}
+  </div>
+
+  {% if posts %}
+    <div class="post-grid">
+      {% for post in posts %}
+      <article class="post-card">
+        <div class="card-top">
+          <span class="category-tag tag-{{ post.category }}">
+            {% if post.category == "opportunity" %}✦ Opportunity{% elif post.category == "discover" %}◈ Discover{% else %}↗ Request{% endif %}
+          </span>
+          {% if post.deadline %}
+            <span class="deadline {% if post.is_expired %}expired{% endif %}">{% if post.is_expired %}Expired{% else %}Due {{ post.deadline|date:"M j" }}{% endif %}</span>
+          {% endif %}
+        </div>
+        <a class="post-title" href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+        <p class="post-excerpt">{{ post.description|truncatechars:145 }}</p>
+        <div class="card-bottom">
+          <span class="author-avatar">{{ post.author_name|first|upper }}</span>
+          <span class="author-name">{{ post.author_name }}</span>
+          <span class="post-date">{{ post.created_at|date:"M j" }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">✳</div>
+      <h3>Your feed starts here.</h3>
+      <p>No posts match that search yet. Add the first useful thing for your community.</p>
+      <a class="button-dark" href="{% url 'create_post' %}">Create the first post</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

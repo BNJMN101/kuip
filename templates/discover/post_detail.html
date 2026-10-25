@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} — Nook{% endblock %}
+{% block content %}
+<div class="detail-wrap">
+  <a class="back-link" href="{% url 'home' %}">← Back to explore</a>
+  <article class="detail-card">
+    <span class="category-tag tag-{{ post.category }}">
+      {% if post.category == "opportunity" %}✦ Opportunity{% elif post.category == "discover" %}◈ Discover{% else %}↗ Request{% endif %}
+    </span>
+    <h1>{{ post.title }}</h1>
+    <div class="detail-meta">Posted by {{ post.author_name }} · {{ post.created_at|date:"M j, Y" }}</div>
+    <div class="detail-description">{{ post.description|linebreaksbr }}</div>
+    {% if post.deadline %}
+      <div class="detail-info"><strong>Deadline</strong><span>{% if post.is_expired %}{{ post.deadline|date:"M j, Y" }} (expired){% else %}{{ post.deadline|date:"M j, Y" }}{% endif %}</span></div>
+    {% endif %}
+    {% if post.link %}
+      <a class="button button-dark" href="{{ post.link }}" target="_blank" rel="noopener noreferrer">Open source / useful link ↗</a>
+    {% endif %}
+    <p class="trust-note">Stay cautious with requests for money or personal information. Check important details with the original source.</p>
+  </article>
+</div>
+{% endblock %}

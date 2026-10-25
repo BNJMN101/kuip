@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Create a post — Kuip{% endblock %}
+{% block content %}
+<div class="form-wrap">
+  <a class="back-link" href="{% url 'home' %}">← Back to explore</a>
+  <p class="eyebrow">ADD SOMETHING USEFUL</p>
+  <h1>Create a post<span class="brand-dot">.</span></h1>
+  <p class="form-intro">Share an opportunity, recommend a resource, or ask the community for help.</p>
+
+  <form method="post" class="post-form">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+    {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+        {% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}
+      </div>
+    {% endfor %}
+    <div class="form-note">Please share accurate information. A link is not automatically proof that an opportunity or service is legitimate.</div>
+    <button class="full-button" type="submit">Publish post ↗</button>
+  </form>
+</div>
+{% endblock %}
