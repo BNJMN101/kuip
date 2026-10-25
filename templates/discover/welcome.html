@@ -1,6 +1,152 @@
 {% extends "base.html" %}
-{% block title %}Welcome — Kuip{% endblock %}
+{% block title %}Kuip: everything useful, shared by people around you{% endblock %}
+
+{% block header %}
+<header class="topbar">
+  {% include "partials/brand.html" %}
+
+  <nav aria-label="Main navigation">
+    <div class="nav-links">
+      <a href="#why">Why Kuip</a>
+      <a href="#find">What you can find</a>
+      <a href="#community">Community</a>
+    </div>
+    {% if user.is_authenticated %}
+      <a class="nav-cta" href="{% url 'dashboard' %}">Open your feed</a>
+    {% else %}
+      {# TEMP: point these at the real login and signup pages once accounts exist #}
+      <a href="{% url 'dashboard' %}">Log in</a>
+      <a class="nav-cta" href="{% url 'dashboard' %}">Sign up</a>
+    {% endif %}
+  </nav>
+</header>
+{% endblock %}
+
 {% block content %}
-<h1>Welcome to Kuip</h1>
-<a href="{% url 'dashboard' %}">Enter the feed</a>
+<section class="hero">
+  <div class="eyebrow"><span class="pulse"></span> FOR EVERYDAY PEOPLE AND STUDENTS IN NIGERIA</div>
+  <h1>Everything useful,<br><span class="muted-heading">shared by people around you.</span></h1>
+  <p class="hero-copy">
+    Opportunities, helpful resources and honest requests from your community, all in one feed.
+  </p>
+  <div class="hero-actions">
+    {% if user.is_authenticated %}
+      <a class="button-dark" href="{% url 'dashboard' %}">Open your feed</a>
+    {% else %}
+      <a class="button-dark" href="{% url 'dashboard' %}">Get started</a>
+      <a class="button-light" href="{% url 'dashboard' %}">Sign in</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="landing-section" id="why">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">WHY KUIP</p>
+      <h2>Where useful things find you.</h2>
+    </div>
+  </div>
+  <div class="feature-grid">
+    <article class="feature-card">
+      <span class="feature-number">01</span>
+      <h3>Find what you need</h3>
+      <p>Search one feed for opportunities, resources and answers shared by people near you.</p>
+    </article>
+    <article class="feature-card">
+      <span class="feature-number">02</span>
+      <h3>Share what you know</h3>
+      <p>Spotted an internship, a free tool or a good tip? Post it in under a minute and help someone else.</p>
+    </article>
+    <article class="feature-card">
+      <span class="feature-number">03</span>
+      <h3>Ask your community</h3>
+      <p>Need something? Make a request and let people who know point you in the right direction.</p>
+    </article>
+  </div>
+</section>
+
+<section class="landing-section" id="find">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">WHAT YOU CAN FIND</p>
+      <h2>One feed. Three kinds of useful.</h2>
+    </div>
+  </div>
+  <ul class="find-list">
+    <li class="find-row">
+      <span class="find-index">01</span>
+      <div>
+        <h3>Opportunities</h3>
+        <p>Internships, scholarships, gigs and events, with deadlines so you never miss out.</p>
+      </div>
+      <span class="category-tag">Time-sensitive</span>
+    </li>
+    <li class="find-row">
+      <span class="find-index">02</span>
+      <div>
+        <h3>Discover</h3>
+        <p>Resources, tools and tips that are worth knowing about.</p>
+      </div>
+      <span class="category-tag">Worth knowing</span>
+    </li>
+    <li class="find-row">
+      <span class="find-index">03</span>
+      <div>
+        <h3>Requests</h3>
+        <p>Ask for what you need and let the community help.</p>
+      </div>
+      <span class="category-tag">Ask anything</span>
+    </li>
+  </ul>
+</section>
+
+<section class="landing-section" id="community">
+  <div class="community-band">
+    <p class="eyebrow">COMMUNITY</p>
+    <h2>Good information gets better when it's shared.</h2>
+    <p>Kuip is built so the things people already know can reach the people who need them.</p>
+  </div>
+</section>
+
+<section class="landing-section" id="join">
+  <div class="community-band cta-band">
+    <h2>Your community is waiting.</h2>
+    <p>Create an account and see what people are sharing today.</p>
+    <div class="hero-actions">
+      {% if user.is_authenticated %}
+        <a class="button-dark" href="{% url 'dashboard' %}">Open your feed</a>
+      {% else %}
+        <a class="button-dark" href="{% url 'dashboard' %}">Sign up</a>
+        <a class="button-light" href="{% url 'dashboard' %}">Log in</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      {% include "partials/brand.html" %}
+      <p class="footer-tagline">A community-powered place to find what you need.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#why">Why Kuip</a></li>
+        <li><a href="#find">What you can find</a></li>
+        <li><a href="#community">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Account</h4>
+      <ul>
+        <li><a href="{% url 'dashboard' %}">Sign up</a></li>
+        <li><a href="{% url 'dashboard' %}">Log in</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 Kuip</p>
+</footer>
 {% endblock %}
