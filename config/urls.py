@@ -4,7 +4,8 @@ from discover import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home, name="home"),
+    path("", views.welcome, name="home"),
+    path("dashboard/", views.dashboard, name="dashboard"),
     path("post/new/", views.create_post, name="create_post"),
     path("post/<int:pk>/", views.post_detail, name="post_detail"),
 ]

@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .forms import PostForm
 from .models import Post
 
-def home(request):
+def dashboard(request):
     posts = Post.objects.filter(is_active=True)
     category = request.GET.get("category", "").strip()
     query = request.GET.get("q", "").strip()
@@ -18,12 +18,15 @@ def home(request):
     if query:
         posts = posts.filter(Q(title__icontains=query) | Q(description__icontains=query))
 
-    return render(request, "discover/home.html", {
+    return render(request, "discover/dashboard.html", {
         "posts": posts,
         "selected_category": category,
         "query": query,
         "categories": Post.Category.choices,
     })
+
+def welcome(request):
+    return render(request, "discover/welcome.html")
 
 def create_post(request):
     if request.method == "POST":
