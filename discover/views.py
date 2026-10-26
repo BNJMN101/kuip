@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import PostForm
 from .models import Post
 
+@login_required
 def dashboard(request):
     posts = Post.objects.filter(is_active=True)
     category = request.GET.get("category", "").strip()
@@ -28,6 +30,7 @@ def dashboard(request):
 def welcome(request):
     return render(request, "discover/welcome.html")
 
+@login_required
 def create_post(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -39,6 +42,7 @@ def create_post(request):
         form = PostForm()
     return render(request, "discover/create_post.html", {"form": form})
 
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk, is_active=True)
     return render(request, "discover/post_detail.html", {"post": post})
