@@ -22,7 +22,7 @@
   </form>
 
   <div class="filters">
-    <a class="filter {% if not selected_category %}active{% endif %}" href="{% url 'home' %}{% if query %}?q={{ query|urlencode }}{% endif %}">Everything</a>
+    <a class="filter {% if not selected_category %}active{% endif %}" href="{% url 'dashboard' %}{% if query %}?q={{ query|urlencode }}{% endif %}">Everything</a>
     {% for value,label in categories %}
       <a class="filter {% if selected_category == value %}active{% endif %}" href="?category={{ value }}{% if query %}&q={{ query|urlencode }}{% endif %}">
         {% if value == "opportunity" %}✦{% elif value == "discover" %}◈{% else %}↗{% endif %} {{ label }}
@@ -45,8 +45,8 @@
         <a class="post-title" href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
         <p class="post-excerpt">{{ post.description|truncatechars:145 }}</p>
         <div class="card-bottom">
-          <span class="author-avatar">{{ post.author_name|first|upper }}</span>
-          <span class="author-name">{{ post.author_name }}</span>
+          <span class="author-avatar">{{ post.author.username|default:"?"|first|upper }}</span>
+          <span class="author-name">{{ post.author.username|default:"Former member" }}</span>
           <span class="post-date">{{ post.created_at|date:"M j" }}</span>
         </div>
       </article>

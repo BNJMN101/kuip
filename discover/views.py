@@ -7,7 +7,7 @@ from .models import Post
 
 @login_required
 def dashboard(request):
-    posts = Post.objects.filter(is_active=True)
+    posts = Post.objects.filter(is_active=True).select_related("author")
     category = request.GET.get("category", "").strip()
     query = request.GET.get("q", "").strip()
 
