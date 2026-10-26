@@ -4,11 +4,10 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title", "category", "description", "author_name", "link", "deadline"]
+        fields = ["title", "category", "description", "link", "deadline"]
         widgets = {
             "title": forms.TextInput(attrs={"placeholder": "e.g. Python study group or internship opening"}),
             "description": forms.Textarea(attrs={"rows": 5, "placeholder": "Share the details people need to know..."}),
-            "author_name": forms.TextInput(attrs={"placeholder": "Your name or a nickname"}),
             "link": forms.URLInput(attrs={"placeholder": "https://..."}),
             "deadline": forms.DateInput(attrs={"type": "date"}),
         }
