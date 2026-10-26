@@ -277,3 +277,12 @@ section[id] { scroll-margin-top: 96px; }
   .find-row .category-tag { display: none; }
   .footer-inner { grid-template-columns: 1fr; }
 }
+
+.logout-form { margin: 0; }
+.topbar nav .logout-form button[type="submit"] {
+  padding: 0; border-radius: 0; background: none; color: #4F4D59;
+  font-size: 13px; font-weight: 700;
+}
+.topbar nav .logout-form button[type="submit"]:hover {
+  background: none; color: var(--purple-dark); transform: none;
+}

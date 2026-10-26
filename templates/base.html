@@ -17,11 +17,18 @@
   {% block header %}
 <header class="topbar">
   {% include "partials/brand.html" %}
-
   <nav aria-label="Main navigation">
     <a href="{% url 'dashboard' %}">Explore</a>
-    <a class="nav-cta" href="{% url 'create_post' %}">＋ Create post</a>
-  </nav>
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'logout' %}" class="logout-form">
+      {% csrf_token %}
+        <button type="submit">Log out</button>
+      </form>
+  {% else %}
+    <a href="{% url 'login' %}">Log in</a>
+  {% endif %}
+  <a class="nav-cta" href="{% url 'create_post' %}">＋ Create post</a>
+</nav>
 </header>
   {% endblock %}
 
