@@ -9,6 +9,12 @@
     </span>
     <h1>{{ post.title }}</h1>
     <div class="detail-meta">Posted by {{ post.author.name.username|default:"Former member" }} · {{ post.created_at|date:"M j, Y" }}</div>
+    {% if post.author == user %}
+      <div class="owner-actions">
+        <a class="button-light" href="{% url 'edit_post' post.pk %}">Edit</a>
+        <a class="button-light" href="{% url 'delete_post' post.pk %}">Delete</a>
+      </div>
+    {% endif %}
     <div class="detail-description">{{ post.description|linebreaksbr }}</div>
     {% if post.deadline %}
       <div class="detail-info"><strong>Deadline</strong><span>{% if post.is_expired %}{{ post.deadline|date:"M j, Y" }} (expired){% else %}{{ post.deadline|date:"M j, Y" }}{% endif %}</span></div>

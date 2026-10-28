@@ -45,6 +45,32 @@ def create_post(request):
     return render(request, "discover/create_post.html", {"form": form})
 
 @login_required
+def edit_post(request, pk):
+    post = get_object_or_404(Post, pk=pk, author=request.user)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your post was updated.")
+            return redirect("post_detail", pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, "discover/create_post.html", {"form": form, "editing": True})
+
+@login_required
+def delete_post(request, pk):
+    post = get_object_or_404(Post, pk=pk, author=request.user)
+
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, "Your post was deleted.")
+        return redirect("dashboard")
+
+    return render(request, "discover/post_confirm_delete.html", {"post": post})
+
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk, is_active=True)
     return render(request, "discover/post_detail.html", {"post": post})

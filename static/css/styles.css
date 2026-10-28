@@ -286,3 +286,7 @@ section[id] { scroll-margin-top: 96px; }
 .topbar nav .logout-form button[type="submit"]:hover {
   background: none; color: var(--purple-dark); transform: none;
 }
+
+button[type="submit"].button-danger { background: var(--danger); }
+button[type="submit"].button-danger:hover { background: #A5301F; }
+.owner-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }

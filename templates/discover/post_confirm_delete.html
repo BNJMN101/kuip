@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Delete post — Kuip{% endblock %}
+
+{% block content %}
+<div class="form-wrap">
+  <a class="back-link" href="{% url 'post_detail' post.pk %}">← Cancel</a>
+  <h1>Delete this post?</h1>
+  <p class="form-intro">"{{ post.title }}" will be permanently removed from the feed. This can't be undone.</p>
+
+  <form method="post" class="post-form">
+    {% csrf_token %}
+    <button type="submit" class="button-danger full-button">Yes, delete it</button>
+  </form>
+</div>
+{% endblock %}
