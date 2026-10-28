@@ -11,7 +11,6 @@ class Post(models.Model):
     title = models.CharField(max_length=140)
     category = models.CharField(max_length=20, choices=Category.choices)
     description = models.TextField(max_length=3000)
-    author_name = models.CharField(max_length=80, default="Community member")
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
