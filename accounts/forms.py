@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 User = get_user_model()
 
@@ -17,3 +17,10 @@ class SignUpForm(UserCreationForm):
         if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError("An account with this email already exists.")
         return email
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
+        label="Username or email",
+        widget=forms.TextInput(attrs={"autofocus": True}),
+    )
