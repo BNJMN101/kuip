@@ -290,3 +290,9 @@ section[id] { scroll-margin-top: 96px; }
 button[type="submit"].button-danger { background: var(--danger); }
 button[type="submit"].button-danger:hover { background: #A5301F; }
 .owner-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+
+.nav-user { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); }
+
+@media (max-width: 560px) {
+  .nav-user-name { display: none; }
+}

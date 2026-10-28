@@ -19,11 +19,15 @@
   {% include "partials/brand.html" %}
   <nav aria-label="Main navigation">
     <a href="{% url 'dashboard' %}">Explore</a>
-      {% if user.is_authenticated %}
-      <form method="post" action="{% url 'logout' %}" class="logout-form">
-      {% csrf_token %}
-        <button type="submit">Log out</button>
-      </form>
+     {% if user.is_authenticated %}
+  <span class="nav-user">
+    <span class="author-avatar">{{ user.username|first|upper }}</span>
+    <span class="nav-user-name">{{ user.username }}</span>
+  </span>
+  <form method="post" action="{% url 'logout' %}" class="logout-form">
+    {% csrf_token %}
+    <button type="submit">Log out</button>
+  </form>
   {% else %}
     <a href="{% url 'login' %}">Log in</a>
   {% endif %}
