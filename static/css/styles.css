@@ -296,3 +296,38 @@ button[type="submit"].button-danger:hover { background: #A5301F; }
 @media (max-width: 560px) {
   .nav-user-name { display: none; }
 }
+
+/* ===== Redesign: foundation ===== */
+:root {
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --panel: #F6F4FB;
+  --ink-soft: #4F4D59;
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 72px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --speed: .2s;
+}
+
+/* One shape for every button */
+.nav-cta, .button-dark, .button-light, .button-primary, button[type="submit"] {
+  border-radius: var(--radius-pill);
+  padding: 12px 22px;
+  transition: background var(--speed) var(--ease), color var(--speed) var(--ease),
+              border-color var(--speed) var(--ease), transform var(--speed) var(--ease);
+}
+
+/* Softer, bigger panels */
+.hero, .community-band { border-radius: var(--radius-lg); }
+
+/* Pill search bar */
+.search-form { border-radius: var(--radius-pill); padding-left: 22px; }
+
+/* Respect people who turn animations off */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
