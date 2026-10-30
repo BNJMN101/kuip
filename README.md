@@ -1,56 +1,70 @@
-# Discovery MVP
+# Kuip
 
-A small mobile-friendly Django app that combines:
-- Opportunities (scholarships, internships, competitions, events)
-- Discover (useful resources, services, recommendations)
-- Requests (things people need help finding)
+Kuip is a community platform where people share and find useful things: opportunities, helpful resources, and requests for help. It's built for everyday people and university students in Nigeria, so a useful internship, scholarship or tip can reach the people who need it.
 
-## Run locally
+This is the first working MVP, built with Django.
 
-Use Python 3.11+ if available.
+## What works today
 
-### Windows (PowerShell)
+- Public welcome page that explains what Kuip is
+- Sign up with a username, email and password (passwords are hashed, with Django's standard strength checks)
+- Log in with either your username or your email
+- Log out
+- A feed of community posts with search and category filters (Opportunities, Discover, Requests)
+- Create, view, edit and delete your own posts
+- Every post is linked to its author, and only the author can edit or delete it
+- Logged-out visitors are redirected to the login page for any private page
+- Automated tests for login protection and post ownership
+
+## Tech stack
+
+- Python and Django
+- SQLite (local development)
+- HTML and CSS, using Django templates
+- Django's built-in authentication
+
+## Run it locally
+
+You need Python 3.10 or newer and Git.
+
 ```powershell
-py -m venv .venv
+git clone https://github.com/BNJMN101/kuip.git
+cd kuip
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-python manage.py makemigrations discover
 python manage.py migrate
 python manage.py runserver
 ```
 
-Open http://127.0.0.1:8000/
+Then open http://127.0.0.1:8000/ and create an account from the sign-up page.
 
-If PowerShell blocks activation, run:
+On Mac or Linux, activate the virtual environment with `source .venv/bin/activate` instead.
+
+`python manage.py migrate` creates your local database. The database file is not stored in the repo, so every machine starts with an empty one.
+
+## Run the tests
+
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe manage.py makemigrations discover
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py runserver
+python manage.py test
 ```
 
-## What works in this first MVP
-- Browse posts in one feed
-- Filter by Opportunities, Discover, or Requests
-- Search titles and descriptions
-- Create a post
-- Optional deadline and source/contact link
-- Basic server-side validation
-- Django admin for managing posts
+## Project layout
 
-## Admin
-Create an admin account:
-```powershell
-python manage.py createsuperuser
-```
-Then open http://127.0.0.1:8000/admin/
+- `config/`: project settings and the main URL list
+- `accounts/`: sign up, log in, log out
+- `discover/`: the feed and posts
+- `templates/`: HTML pages
+- `static/`: CSS and images
 
-## Important limitations
-This is a local prototype, not ready for public launch.
-- No user accounts or ownership controls in the public interface yet.
-- No comments, messaging, notifications, or automated verification.
-- A source link does not mean a listing is verified.
-- Before public deployment, add authentication, abuse reporting/moderation, privacy protections, tests, and production settings.
+## Notes
 
-## Next build step
-Run it locally first. Then we can add user accounts and report/moderation features without making the first version unnecessarily complicated.
+- This is an early MVP for local development, not production.
+- The secret key in `config/settings.py` can be overridden with the `DJANGO_SECRET_KEY` environment variable. Set a real one before deploying anywhere.
+
+## Roadmap
+
+- Comments on posts
+- User profiles and saved posts
+- A redesigned, multi-page welcome site
+- Sign in with Google
