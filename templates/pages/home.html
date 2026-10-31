@@ -1,0 +1,137 @@
+{% extends "pages/base_marketing.html" %}
+{% block title %}Kuip: everything useful, shared by people around you{% endblock %}
+
+{% block content %}
+<section class="mk-hero">
+  <div class="mk-hero-copy">
+    <p class="pill-label reveal"><span class="pulse"></span> Built for everyday people and students in Nigeria</p>
+    <h1 class="reveal" style="--d:.05s">Everything useful, <span class="muted-heading">shared by people around you.</span></h1>
+    <p class="lead reveal" style="--d:.1s">Opportunities, helpful resources and honest requests from your community, all in one feed.</p>
+    <div class="hero-actions reveal" style="--d:.15s">
+      {% if user.is_authenticated %}
+        <a class="button-dark" href="{% url 'dashboard' %}">Open your feed</a>
+      {% else %}
+        <a class="button-dark" href="{% url 'signup' %}">Get started</a>
+        <a class="button-light" href="{% url 'how_it_works' %}">See how it works</a>
+      {% endif %}
+    </div>
+    <ul class="trust-list reveal" style="--d:.2s">
+      <li>Free to join</li>
+      <li>Search by category</li>
+      <li>You control your posts</li>
+    </ul>
+  </div>
+
+  <div class="mk-hero-visual reveal" style="--d:.15s" data-tabs>
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+
+    <div class="preview">
+      <div class="tab-row" role="tablist" aria-label="Kinds of posts">
+        <button type="button" class="tab active" role="tab" aria-selected="true" data-tab="opportunity">✦ Opportunities</button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-tab="discover">◈ Discover</button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-tab="request">↗ Requests</button>
+      </div>
+
+      <div data-panel="opportunity">
+        <article class="mock-card">
+          <div class="card-top"><span class="category-tag">✦ Opportunity</span><span class="deadline">Due Nov 20</span></div>
+          <h3>Junior web developer internship</h3>
+          <p>Remote, 3 months. Open to final-year students.</p>
+        </article>
+        <article class="mock-card">
+          <div class="card-top"><span class="category-tag">✦ Opportunity</span><span class="deadline">Due Dec 2</span></div>
+          <h3>Undergraduate scholarship applications</h3>
+          <p>Applications are open for the new session.</p>
+        </article>
+      </div>
+
+      <div data-panel="discover" hidden>
+        <article class="mock-card">
+          <div class="card-top"><span class="category-tag">◈ Discover</span></div>
+          <h3>A free Python course with certificates</h3>
+          <p>Beginner friendly, self-paced.</p>
+        </article>
+        <article class="mock-card">
+          <div class="card-top"><span class="category-tag">◈ Discover</span></div>
+          <h3>Quiet study spots on campus</h3>
+          <p>Where to go when the hostel gets loud.</p>
+        </article>
+      </div>
+
+      <div data-panel="request" hidden>
+        <article class="mock-card">
+          <div class="card-top"><span class="category-tag">↗ Request</span></div>
+          <h3>Looking for a used laptop</h3>
+          <p>Budget around ₦250,000. Any leads?</p>
+        </article>
+        <article class="mock-card">
+          <div class="card-top"><span class="category-tag">↗ Request</span></div>
+          <h3>Past questions for CSC 201</h3>
+          <p>Does anyone have last year's papers?</p>
+        </article>
+      </div>
+
+      <p class="preview-note">Example posts, to show what Kuip feels like.</p>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" id="kinds">
+  <div class="section-head reveal">
+    <div>
+      <p class="eyebrow">What you'll find</p>
+      <h2>Three kinds of useful.</h2>
+    </div>
+  </div>
+  <div class="feature-grid">
+    <article class="feature-card reveal">
+      <span class="feature-icon">✦</span>
+      <h3>Opportunities</h3>
+      <p>Internships, scholarships, gigs and events, with deadlines so you never miss out.</p>
+    </article>
+    <article class="feature-card reveal" style="--d:.08s">
+      <span class="feature-icon">◈</span>
+      <h3>Discover</h3>
+      <p>Resources, tools and tips that are worth knowing about, shared by people who've used them.</p>
+    </article>
+    <article class="feature-card reveal" style="--d:.16s">
+      <span class="feature-icon">↗</span>
+      <h3>Requests</h3>
+      <p>Need something? Ask, and let people who know point you the right way.</p>
+    </article>
+  </div>
+</section>
+
+<section class="mk-section">
+  <div class="mk-band reveal">
+    <div>
+      <p class="eyebrow">Up and running in a minute</p>
+      <h2>Join, look around, add something.</h2>
+      <p>No long setup. Make an account, browse the feed, and share the first useful thing you know.</p>
+      <a class="button-light" href="{% url 'how_it_works' %}">How it works →</a>
+    </div>
+    <ol class="mk-steps">
+      <li><div><strong>Create your account</strong><span>Username, email and a password.</span></div></li>
+      <li><div><strong>Explore the feed</strong><span>Search or filter by category.</span></div></li>
+      <li><div><strong>Share or ask</strong><span>Post something useful, or make a request.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="mk-section">
+  <div class="community-band cta-band reveal">
+    <h2>Your community is waiting.</h2>
+    <p>Create a free account and see what people are sharing today.</p>
+    <div class="hero-actions">
+      {% if user.is_authenticated %}
+        <a class="button-dark" href="{% url 'dashboard' %}">Open your feed</a>
+      {% else %}
+        <a class="button-dark" href="{% url 'signup' %}">Get started</a>
+        <a class="button-light" href="{% url 'login' %}">Log in</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

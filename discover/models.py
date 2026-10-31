@@ -4,9 +4,11 @@ from django.utils import timezone
 
 class Post(models.Model):
     class Category(models.TextChoices):
+        IDEA = "idea", "Ideas"
+        INFO = "discover", "Info & tips"
+        FUN = "fun", "Just for fun"
+        QUESTION = "request", "Questions"
         OPPORTUNITY = "opportunity", "Opportunities"
-        DISCOVER = "discover", "Discover"
-        REQUEST = "request", "Requests"
 
     title = models.CharField(max_length=140)
     category = models.CharField(max_length=20, choices=Category.choices)

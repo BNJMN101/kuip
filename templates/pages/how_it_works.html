@@ -1,0 +1,76 @@
+{% extends "pages/base_marketing.html" %}
+{% block title %}How it works · Kuip{% endblock %}
+
+{% block content %}
+<section class="mk-page-head">
+  <p class="pill-label reveal"><span class="pulse"></span> How it works</p>
+  <h1 class="reveal" style="--d:.05s">Simple on purpose.</h1>
+  <p class="reveal" style="--d:.1s">Kuip is a shared feed. You find useful things, add your own, and ask when you need help. That's the whole idea.</p>
+</section>
+
+<section class="mk-section">
+  <div class="cluster reveal">
+    <article class="petal petal-a">
+      <span class="feature-icon">⌕</span>
+      <h3>Find</h3>
+      <p>Search the feed or filter by category to see what people are sharing.</p>
+    </article>
+    <article class="petal petal-b">
+      <span class="feature-icon">✦</span>
+      <h3>Share</h3>
+      <p>Post an opportunity or a useful resource in under a minute.</p>
+    </article>
+    <article class="petal petal-c">
+      <span class="feature-icon">↗</span>
+      <h3>Ask</h3>
+      <p>Make a request and let the community point you in the right direction.</p>
+    </article>
+    <article class="petal petal-d">
+      <span class="feature-icon">✎</span>
+      <h3>Stay in control</h3>
+      <p>Edit or delete your own posts any time. Nobody else can.</p>
+    </article>
+    <div class="cluster-core" aria-hidden="true">kuip<span class="brand-dot">.</span></div>
+  </div>
+</section>
+
+<section class="mk-section">
+  <div class="section-head reveal">
+    <div>
+      <p class="eyebrow">Safe by design</p>
+      <h2>Your posts, your control.</h2>
+    </div>
+  </div>
+  <div class="feature-grid">
+    <article class="feature-card reveal">
+      <span class="feature-icon">🔒</span>
+      <h3>Only you can change your posts</h3>
+      <p>Every post is linked to its author, and the server checks ownership before any edit or delete.</p>
+    </article>
+    <article class="feature-card reveal" style="--d:.08s">
+      <span class="feature-icon">⚠</span>
+      <h3>Check before you trust</h3>
+      <p>Be cautious with requests for money or personal information, and confirm details with the original source.</p>
+    </article>
+    <article class="feature-card reveal" style="--d:.16s">
+      <span class="feature-icon">✉</span>
+      <h3>Log in your way</h3>
+      <p>Use your username or your email. Passwords are stored securely, never in plain text.</p>
+    </article>
+  </div>
+</section>
+
+<section class="mk-section">
+  <div class="community-band cta-band reveal">
+    <h2>Ready to look around?</h2>
+    <p>It takes a minute to create an account.</p>
+    <div class="hero-actions">
+      {% if user.is_authenticated %}
+        <a class="button-dark" href="{% url 'dashboard' %}">Open your feed</a>
+      {% else %}
+        <a class="button-dark" href="{% url 'signup' %}">Get started</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

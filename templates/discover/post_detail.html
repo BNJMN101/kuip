@@ -5,7 +5,7 @@
   <a class="back-link" href="{% url 'dashboard' %}">← Back to explore</a>
   <article class="detail-card">
     <span class="category-tag tag-{{ post.category }}">
-      {% if post.category == "opportunity" %}✦ Opportunity{% elif post.category == "discover" %}◈ Discover{% else %}↗ Request{% endif %}
+      {{ post.get_category_display }}
     </span>
     <h1>{{ post.title }}</h1>
     <div class="detail-meta">Posted by {{ post.author.name.username|default:"Former member" }} · {{ post.created_at|date:"M j, Y" }}</div>
