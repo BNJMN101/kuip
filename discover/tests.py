@@ -48,7 +48,7 @@ class DashboardTests(TestCase):
         self.bob = User.objects.create_user(username="bob", password="StrongPass123!")
         Post.objects.create(
             title="Post by Alice", category=Post.Category.IDEA,
-            description="Hello", author=self.alice,
+            description="Hell``o", author=self.alice,
         )
         Post.objects.create(
             title="Post by Bob", category=Post.Category.IDEA,
