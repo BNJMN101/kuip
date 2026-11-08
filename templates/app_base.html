@@ -18,10 +18,10 @@
       {% if topics %}
         <p class="sh-label">Topics</p>
         {% for t in topics %}
-          <a class="sh-link {% if selected_category == t.value %}active{% endif %}" href="{% url 'dashboard' %}?category={{ t.value }}">
-            <span class="dot dot-{{ t.value }}"></span><span>{{ t.label }}</span><em>{{ t.count }}</em>
-          </a>
-        {% endfor %}
+  <a class="sh-link sub {% if selected_category == t.value %}active{% endif %}" href="{% url 'dashboard' %}?category={{ t.value }}">
+    <span>{{ t.label }}</span><em>{{ t.count }}</em>
+  </a>
+{% endfor %}
       {% endif %}
 
       <p class="sh-label">Resources</p>
@@ -38,12 +38,11 @@
     <header class="sh-top">
       <div class="sh-top-brand">{% include "partials/brand.html" with app=True %}</div>
 
-      <form class="sh-search" method="get" action="{% url 'dashboard' %}" role="search">
-        <svg class="ic"><use href="#i-search"/></svg>
-        <input type="search" name="q" value="{{ query }}" placeholder="Search Kuip" aria-label="Search Kuip">
-        {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
-        {% if mine %}<input type="hidden" name="mine" value="1">{% endif %}
-      </form>
+     <form class="sh-search" method="get" action="{% url 'dashboard' %}" role="search">
+  <svg class="ic"><use href="#i-search"/></svg>
+  <input type="search" name="q" value="{{ query }}" placeholder="Search Kuip" aria-label="Search Kuip" autocomplete="off" enterkeyhint="search" maxlength="100">
+  <span class="kbd" aria-hidden="true">/</span>
+</form>
 
       <a class="sh-create" href="{% url 'create_post' %}"><svg class="ic"><use href="#i-plus"/></svg><span>Create</span></a>
 

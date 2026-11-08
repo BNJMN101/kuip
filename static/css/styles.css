@@ -839,15 +839,7 @@ main.page { overflow-x: clip; }
 /* ===== App shell (light, Reddit-style) ===== */
 .ic { width: 20px; height: 20px; flex: 0 0 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-.tag-idea        { background: #FFF1B8; color: #7A5B00; }
-.tag-fun         { background: #FFE0D6; color: #B23A12; }
-.tag-discover    { background: #D9EEFF; color: #0B5A99; }
-.tag-request     { background: #FFDDF0; color: #A3175F; }
-.tag-opportunity { background: var(--purple-soft); color: var(--purple-dark); }
 
-.dot { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: var(--purple-dark); }
-.dot-idea { background: #F2B705; } .dot-discover { background: #2E9BE0; } .dot-fun { background: #F2683C; }
-.dot-request { background: #E85AA6; } .dot-opportunity { background: var(--purple-dark); }
 .author-avatar.sm { width: 24px; height: 24px; font-size: 11px; }
 
 .shell { display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: 100vh; }
@@ -925,13 +917,9 @@ main.page { overflow-x: clip; }
   background: var(--panel); color: var(--muted); transition: border-color var(--speed) var(--ease);
 }
 .sh-compose-input:hover .fake-input { border-color: var(--purple-dark); }
-.sh-compose-types { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.type-pill {
-  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--line);
-  border-radius: 999px; color: var(--ink-soft); font-size: 13px; font-weight: 700;
-  transition: border-color var(--speed) var(--ease), translate var(--speed) var(--ease);
-}
 .type-pill:hover { border-color: var(--purple-dark); translate: 0 -2px; }
+.sh-link.sub { padding-left: 44px; font-weight: 600; }
+.sh-meta .category-tag { background: var(--panel); color: var(--muted); }
 
 .sh-topic-strip { display: none; gap: 8px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
 .chip-link {
@@ -1045,3 +1033,7 @@ main.page { overflow-x: clip; }
   .sh-create { padding: 11px; }
   .sh-user summary { padding-right: 4px; }
 }
+
+.sh-search .kbd { padding: 2px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--white); color: var(--muted); font-size: 12px; font-weight: 700; }
+.sh-search:focus-within .kbd { display: none; }
+@media (max-width: 900px) { .sh-search .kbd { display: none; } }

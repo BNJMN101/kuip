@@ -66,3 +66,25 @@ class DashboardTests(TestCase):
         response = self.client.get(reverse("dashboard"), {"mine": "1"})
         titles = [post.title for post in response.context["posts"]]
         self.assertEqual(titles, ["Post by Alice"])
+
+    def test_search_ignores_topic_filter(self):
+        Post.objects.create(
+            title="Gist about jollof", category=Post.Category.FUN,
+            description="Party or smoky?", author=self.bob,
+        )
+        self.client.force_login(self.alice)
+        response = self.client.get(reverse("dashboard"), {"q": "jollof", "category": "idea"})
+        titles = [post.title for post in response.context["posts"]]
+        self.assertEqual(titles, ["Gist about jollof"])
+
+    def test_search_matches_author_username(self):
+        self.client.force_login(self.alice)
+        response = self.client.get(reverse("dashboard"), {"q": "bob"})
+        titles = [post.title for post in response.context["posts"]]
+        self.assertEqual(titles, ["Post by Bob"])
+
+    def test_search_with_no_matches_still_loads(self):
+        self.client.force_login(self.alice)
+        response = self.client.get(reverse("dashboard"), {"q": "zzzzqqq"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["posts"]), 0)

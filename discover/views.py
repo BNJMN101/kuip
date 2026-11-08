@@ -8,21 +8,29 @@ from .models import Post
 @login_required
 def dashboard(request):
     posts = Post.objects.filter(is_active=True).select_related("author")
+    labels = dict(Post.Category.choices)
+
+    query = request.GET.get("q", "").strip()[:100]
     category = request.GET.get("category", "").strip()
-    query = request.GET.get("q", "").strip()
     mine = request.GET.get("mine") == "1"
 
-    labels = dict(Post.Category.choices)
-    if category in labels:
-        posts = posts.filter(category=category)
-    else:
-        category = ""
-
-    if mine:
-        posts = posts.filter(author=request.user)
-
     if query:
-        posts = posts.filter(Q(title__icontains=query) | Q(description__icontains=query))
+        # Search looks everywhere, so the topic and "my posts" filters are ignored
+        category = ""
+        mine = False
+        for term in query.split():
+            posts = posts.filter(
+                Q(title__icontains=term)
+                | Q(description__icontains=term)
+                | Q(author__username__icontains=term)
+            )
+    else:
+        if category in labels:
+            posts = posts.filter(category=category)
+        else:
+            category = ""
+        if mine:
+            posts = posts.filter(author=request.user)
 
     return render(request, "discover/dashboard.html", {
         "posts": posts,

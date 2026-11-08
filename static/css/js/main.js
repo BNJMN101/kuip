@@ -121,3 +121,14 @@ document.querySelectorAll("[data-copy]").forEach((btn) => {
     setTimeout(() => { label.textContent = original; }, 1600);
   });
 });
+
+// Press / to jump to the search box
+document.addEventListener("keydown", (e) => {
+  const field = document.querySelector(".sh-search input")
+  if (e.key != "/" || !field) return;
+  const active = document.activeElement;
+  const typing = active && (["INPUT", "TEXTAREA", "SELECT"].includes(active.tagName) || active.isContentEditable);
+  if (typing)  return;
+  e.preventDefault();
+  field.focus();
+});

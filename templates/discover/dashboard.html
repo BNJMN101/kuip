@@ -25,7 +25,7 @@
     </div>
 
     <div class="sh-feed-head">
-      <h1>{% if mine %}My posts{% elif selected_label %}{{ selected_label }}{% elif query %}Search results{% else %}Home{% endif %}</h1>
+      <h1>{% if query %}Results for &ldquo;{{ query }}&rdquo;{% elif mine %}My posts{% elif selected_label %}{{ selected_label }}{% else %}Home{% endif %}</h1>
       <span>
         {{ posts|length }} post{{ posts|length|pluralize }}
         {% if selected_category or mine or query %} · <a href="{% url 'dashboard' %}">Clear filters</a>{% endif %}
@@ -58,10 +58,15 @@
         </article>
       {% empty %}
         <div class="sh-empty">
-          <h3>{% if query or selected_category or mine %}Nothing matches that yet.{% else %}Your feed starts here.{% endif %}</h3>
-          <p>Be the one who starts the conversation.</p>
-          <a class="sh-btn" href="{% url 'create_post' %}">Create a post</a>
-        </div>
+  {% if query %}
+    <h3>No results for &ldquo;{{ query }}&rdquo;</h3>
+    <p>Try fewer words, or check the spelling.</p>
+  {% else %}
+    <h3>{% if selected_category or mine %}Nothing here yet.{% else %}Your feed starts here.{% endif %}</h3>
+    <p>Be the one who starts the conversation.</p>
+  {% endif %}
+  <a class="sh-btn" href="{% url 'create_post' %}">Create a post</a>
+</div>
       {% endfor %}
     </div>
   </section>
