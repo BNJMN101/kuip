@@ -2,7 +2,6 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-<script src="{% static 'js/main.js' %}" defer></script>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,10 +10,10 @@
 
   <title>{% block title %}Kuip — discover what matters{% endblock %}</title>
 
-  <link rel="icon" type="image/svg+xml" href="{% static 'images/kuip-icon.svg' %}">
+  <link rel="icon" type="image/svg+xml" href="{% static 'css/images/kuip-icon.svg' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
   {% block header %}
 <header class="topbar">
   {% include "partials/brand.html" %}
@@ -37,6 +36,7 @@
 </header>
   {% endblock %}
 
+  {% block main %}
   <main class="page">
     {% if messages %}
       {% for message in messages %}
@@ -46,11 +46,13 @@
 
     {% block content %}{% endblock %}
   </main>
+  {% endblock %}
 
 {% block footer %}
     <footer class="footer">
       A community-powered place to find what you need.
     </footer>
 {% endblock %}
+  <script src="{% static 'css/js/main.js' %}" defer></script>
 </body>
 </html>

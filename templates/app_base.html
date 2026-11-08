@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block body_class %}app-body{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block main %}
+{% include "partials/icons.html" %}
+{% with current=request.resolver_match.url_name %}
+<div class="shell">
+  <aside class="sh-side">
+    {% include "partials/brand.html" with app=True %}
+
+    <nav class="sh-nav" aria-label="App navigation">
+      <a class="sh-link {% if current == 'dashboard' and not selected_category and not mine %}active{% endif %}" href="{% url 'dashboard' %}"><svg class="ic"><use href="#i-home"/></svg><span>Home</span></a>
+      <a class="sh-link {% if mine %}active{% endif %}" href="{% url 'dashboard' %}?mine=1"><svg class="ic"><use href="#i-user"/></svg><span>My posts</span></a>
+
+      {% if topics %}
+        <p class="sh-label">Topics</p>
+        {% for t in topics %}
+          <a class="sh-link {% if selected_category == t.value %}active{% endif %}" href="{% url 'dashboard' %}?category={{ t.value }}">
+            <span class="dot dot-{{ t.value }}"></span><span>{{ t.label }}</span><em>{{ t.count }}</em>
+          </a>
+        {% endfor %}
+      {% endif %}
+
+      <p class="sh-label">Resources</p>
+      <a class="sh-link" href="{% url 'about' %}"><svg class="ic"><use href="#i-info"/></svg><span>About Kuip</span></a>
+      <a class="sh-link" href="{% url 'guidelines' %}"><svg class="ic"><use href="#i-info"/></svg><span>Guidelines</span></a>
+
+      <p class="sh-label">On the way</p>
+      <span class="sh-link is-soon" aria-disabled="true"><svg class="ic"><use href="#i-users"/></svg><span>Communities</span><b class="soon">Soon</b></span>
+      <span class="sh-link is-soon" aria-disabled="true"><svg class="ic"><use href="#i-chat"/></svg><span>Messages</span><b class="soon">Later</b></span>
+    </nav>
+  </aside>
+
+  <div class="sh-main">
+    <header class="sh-top">
+      <div class="sh-top-brand">{% include "partials/brand.html" with app=True %}</div>
+
+      <form class="sh-search" method="get" action="{% url 'dashboard' %}" role="search">
+        <svg class="ic"><use href="#i-search"/></svg>
+        <input type="search" name="q" value="{{ query }}" placeholder="Search Kuip" aria-label="Search Kuip">
+        {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
+        {% if mine %}<input type="hidden" name="mine" value="1">{% endif %}
+      </form>
+
+      <a class="sh-create" href="{% url 'create_post' %}"><svg class="ic"><use href="#i-plus"/></svg><span>Create</span></a>
+
+      <details class="sh-user">
+        <summary><span class="author-avatar">{{ user.username|first|upper }}</span><span class="uname">{{ user.username }}</span></summary>
+        <div class="sh-menu">
+          <p>Signed in as <strong>{{ user.username }}</strong></p>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log out</button>
+          </form>
+        </div>
+      </details>
+    </header>
+
+    <div class="sh-body">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="notice">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
+      {% block app_content %}{% endblock %}
+    </div>
+  </div>
+</div>
+
+<nav class="sh-tabbar" aria-label="Mobile navigation">
+  <a href="{% url 'dashboard' %}" class="{% if current == 'dashboard' and not selected_category and not mine %}active{% endif %}"><svg class="ic"><use href="#i-home"/></svg><span>Home</span></a>
+  <a href="{% url 'dashboard' %}#topics"><svg class="ic"><use href="#i-grid"/></svg><span>Topics</span></a>
+  <a href="{% url 'create_post' %}" class="tab-plus" aria-label="Create a post"><svg class="ic"><use href="#i-plus"/></svg></a>
+  <a href="{% url 'dashboard' %}?mine=1" class="{% if mine %}active{% endif %}"><svg class="ic"><use href="#i-user"/></svg><span>Mine</span></a>
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit"><svg class="ic"><use href="#i-logout"/></svg><span>Log out</span></button>
+  </form>
+</nav>
+{% endwith %}
+{% endblock %}

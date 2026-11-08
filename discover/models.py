@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -21,7 +22,6 @@ class Post(models.Model):
         blank=True,
     )
     link = models.URLField(blank=True, help_text="Official source, useful link, or contact page (optional).")
-    deadline = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
 
@@ -32,8 +32,10 @@ class Post(models.Model):
         return self.title
 
     @property
-    def is_expired(self):
-        return self.deadline is not None and self.deadline < timezone.localdate()
+    def link_domain(self):
+        if not self.link:
+            return ""
+        return urlparse(self.link).netloc.removeprefix("www.")
 
 
 class Comment(models.Model):

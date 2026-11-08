@@ -41,3 +41,28 @@ class PostOwnershipTests(TestCase):
         response = self.client.post(reverse("delete_post", args=[self.post.pk]))
         self.assertEqual(response.status_code, 404)
         self.assertTrue(Post.objects.filter(pk=self.post.pk).exists())
+
+class DashboardTests(TestCase):
+    def setUp(self):
+        self.alice = User.objects.create_user(username="alice", password="StrongPass123!")
+        self.bob = User.objects.create_user(username="bob", password="StrongPass123!")
+        Post.objects.create(
+            title="Post by Alice", category=Post.Category.IDEA,
+            description="Hello", author=self.alice,
+        )
+        Post.objects.create(
+            title="Post by Bob", category=Post.Category.IDEA,
+            description="Hello", author=self.bob,
+        )
+
+    def test_dashboard_shows_all_posts(self):
+        self.client.force_login(self.alice)
+        response = self.client.get(reverse("dashboard"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["posts"]), 2)
+
+    def test_my_posts_filter_only_returns_own_posts(self):
+        self.client.force_login(self.alice)
+        response = self.client.get(reverse("dashboard"), {"mine": "1"})
+        titles = [post.title for post in response.context["posts"]]
+        self.assertEqual(titles, ["Post by Alice"])

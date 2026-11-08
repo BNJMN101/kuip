@@ -1,64 +1,71 @@
-{% extends "base.html" %}
-{% block title %}Explore — Kuip{% endblock %}
-{% block content %}
-<section class="hero">
-  <div class="eyebrow"><span class="pulse"></span> YOUR COMMUNITY, IN ONE PLACE</div>
-  <h1>Find what you need.<br><span class="muted-heading">Share what you know.</span></h1>
-  <p class="hero-copy">Opportunities, useful resources, and requests from people around you.</p>
-  <a class="button-dark" href="{% url 'create_post' %}">＋ Share something</a>
-</section>
+{% extends "app_base.html" %}
+{% block title %}Home · Kuip{% endblock %}
 
-<section class="feed-section">
-  <div class="section-head">
-    <div><p class="eyebrow">THE COMMUNITY BOARD</p><h2>Explore the feed</h2></div>
-    <span class="result-count">{{ posts|length }} post{{ posts|length|pluralize }}</span>
-  </div>
+{% block app_content %}
+<div class="sh-grid">
+  <section class="sh-feed">
 
-  <form class="search-form" method="get">
-    <span class="search-icon">⌕</span>
-    <input type="search" name="q" value="{{ query }}" placeholder="Search opportunities, services, requests...">
-    {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
-    <button type="submit">Search</button>
-  </form>
-
-  <div class="filters">
-    <a class="filter {% if not selected_category %}active{% endif %}" href="{% url 'dashboard' %}{% if query %}?q={{ query|urlencode }}{% endif %}">Everything</a>
-    {% for value,label in categories %}
-      <a class="filter {% if selected_category == value %}active{% endif %}" href="?category={{ value }}{% if query %}&q={{ query|urlencode }}{% endif %}">
-        {{ label }}
+    <div class="sh-composer">
+      <a class="sh-compose-input" href="{% url 'create_post' %}">
+        <span class="author-avatar">{{ user.username|first|upper }}</span>
+        <span class="fake-input">Create post</span>
       </a>
-    {% endfor %}
-  </div>
+      <div class="sh-compose-types">
+        {% for t in topics %}
+          <a class="type-pill" href="{% url 'create_post' %}?type={{ t.value }}"><span class="dot dot-{{ t.value }}"></span>{{ t.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
 
-  {% if posts %}
-    <div class="post-grid">
-      {% for post in posts %}
-      <article class="post-card">
-        <div class="card-top">
-          <span class="category-tag tag-{{ post.category }}">
-            {{ post.get_category_display }}
-          </span>
-          {% if post.deadline %}
-            <span class="deadline {% if post.is_expired %}expired{% endif %}">{% if post.is_expired %}Expired{% else %}Due {{ post.deadline|date:"M j" }}{% endif %}</span>
-          {% endif %}
-        </div>
-        <a class="post-title" href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
-        <p class="post-excerpt">{{ post.description|truncatechars:145 }}</p>
-        <div class="card-bottom">
-          <span class="author-avatar">{{ post.author.username|default:"?"|first|upper }}</span>
-          <span class="author-name">{{ post.author.username|default:"Former member" }}</span>
-          <span class="post-date">{{ post.created_at|date:"M j" }}</span>
-        </div>
-      </article>
+    <div class="sh-topic-strip" id="topics">
+      <a class="chip-link {% if not selected_category %}active{% endif %}" href="{% url 'dashboard' %}">All</a>
+      {% for t in topics %}
+        <a class="chip-link {% if selected_category == t.value %}active{% endif %}" href="{% url 'dashboard' %}?category={{ t.value }}">{{ t.label }}</a>
       {% endfor %}
     </div>
-  {% else %}
-    <div class="empty-state">
-      <div class="empty-icon">✳</div>
-      <h3>Your feed starts here.</h3>
-      <p>No posts match that search yet. Add the first useful thing for your community.</p>
-      <a class="button-dark" href="{% url 'create_post' %}">Create the first post</a>
+
+    <div class="sh-feed-head">
+      <h1>{% if mine %}My posts{% elif selected_label %}{{ selected_label }}{% elif query %}Search results{% else %}Home{% endif %}</h1>
+      <span>
+        {{ posts|length }} post{{ posts|length|pluralize }}
+        {% if selected_category or mine or query %} · <a href="{% url 'dashboard' %}">Clear filters</a>{% endif %}
+      </span>
     </div>
-  {% endif %}
-</section>
+
+    <div class="sh-list">
+      {% for post in posts %}
+        <article class="sh-post">
+          <div class="sh-meta">
+            <span class="author-avatar sm">{{ post.author.username|default:"?"|first|upper }}</span>
+            <strong>{{ post.author.username|default:"Former member" }}</strong>
+            <time>{{ post.created_at|date:"M j" }}</time>
+            <span class="category-tag tag-{{ post.category }}">{{ post.get_category_display }}</span>
+          </div>
+
+          <h2 class="sh-post-title"><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+          <p class="sh-post-body">{{ post.description|truncatechars:280 }}</p>
+
+          {% if post.link_domain %}
+            <span class="link-chip"><svg class="ic"><use href="#i-link"/></svg>{{ post.link_domain }}</span>
+          {% endif %}
+
+          <div class="sh-post-foot">
+            <button type="button" class="foot-link" data-copy="{% url 'post_detail' post.pk %}"><svg class="ic"><use href="#i-link"/></svg><span>Share</span></button>
+            {% if post.author == user %}
+              <a class="foot-link" href="{% url 'edit_post' post.pk %}"><svg class="ic"><use href="#i-edit"/></svg><span>Edit</span></a>
+            {% endif %}
+          </div>
+        </article>
+      {% empty %}
+        <div class="sh-empty">
+          <h3>{% if query or selected_category or mine %}Nothing matches that yet.{% else %}Your feed starts here.{% endif %}</h3>
+          <p>Be the one who starts the conversation.</p>
+          <a class="sh-btn" href="{% url 'create_post' %}">Create a post</a>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% include "partials/app_rail.html" %}
+</div>
 {% endblock %}

@@ -8,7 +8,9 @@
   <nav aria-label="Main navigation">
     <div class="nav-links">
       <a href="{% url 'home' %}" {% if current == 'home' %}class="active"{% endif %}>Home</a>
+      <a href="{% url 'communities' %}" {% if current == 'communities' %}class="active"{% endif %}>Communities</a>
       <a href="{% url 'how_it_works' %}" {% if current == 'how_it_works' %}class="active"{% endif %}>How it works</a>
+      <a href="{% url 'about' %}" {% if current == 'about' %}class="active"{% endif %}>About</a>
     </div>
 
     <div class="nav-actions">
@@ -19,8 +21,8 @@
         </form>
         <a class="nav-cta" href="{% url 'dashboard' %}">Open your feed</a>
       {% else %}
-        <a class="nav-login" href="{% url 'login' %}">Log in</a>
-        <a class="nav-cta" href="{% url 'signup' %}">Sign up</a>
+        <a class="nav-login" href="{% url 'login' %}">Sign in</a>
+        <a class="nav-cta" href="{% url 'signup' %}">Get started</a>
       {% endif %}
     </div>
 
@@ -28,8 +30,10 @@
       <summary>Menu</summary>
       <div class="mobile-panel">
         <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'communities' %}">Communities</a>
         <a href="{% url 'how_it_works' %}">How it works</a>
-        {% if not user.is_authenticated %}<a href="{% url 'login' %}">Log in</a>{% endif %}
+        <a href="{% url 'about' %}">About</a>
+        {% if not user.is_authenticated %}<a href="{% url 'login' %}">Sign in</a>{% endif %}
       </div>
     </details>
   </nav>
@@ -42,20 +46,28 @@
   <div class="footer-inner">
     <div>
       {% include "partials/brand.html" %}
-      <p class="footer-tagline">A community-powered place to find what you need.</p>
+      <p class="footer-tagline">Find your people. Share your world.</p>
     </div>
     <div>
-      <h4>Kuip</h4>
+      <h4>Explore</h4>
       <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'communities' %}">Communities</a></li>
         <li><a href="{% url 'how_it_works' %}">How it works</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'guidelines' %}">Community guidelines</a></li>
       </ul>
     </div>
     <div>
       <h4>Account</h4>
       <ul>
-        <li><a href="{% url 'signup' %}">Sign up</a></li>
-        <li><a href="{% url 'login' %}">Log in</a></li>
+        <li><a href="{% url 'signup' %}">Get started</a></li>
+        <li><a href="{% url 'login' %}">Sign in</a></li>
       </ul>
     </div>
   </div>

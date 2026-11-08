@@ -1,28 +1,44 @@
-{% extends "base.html" %}
-{% block title %}{{ post.title }} — Kuip{% endblock %}
-{% block content %}
-<div class="detail-wrap">
-  <a class="back-link" href="{% url 'dashboard' %}">← Back to explore</a>
-  <article class="detail-card">
-    <span class="category-tag tag-{{ post.category }}">
-      {{ post.get_category_display }}
-    </span>
+{% extends "app_base.html" %}
+{% block title %}{{ post.title }} · Kuip{% endblock %}
+
+{% block app_content %}
+<div class="sh-grid">
+  <article class="sh-detail">
+    <a class="back-link" href="{% url 'dashboard' %}">Back to feed</a>
+
+    <div class="sh-meta">
+      <span class="author-avatar">{{ post.author.username|default:"?"|first|upper }}</span>
+      <strong>{{ post.author.username|default:"Former member" }}</strong>
+      <time>{{ post.created_at|date:"M j, Y" }}</time>
+      <span class="category-tag tag-{{ post.category }}">{{ post.get_category_display }}</span>
+    </div>
+
     <h1>{{ post.title }}</h1>
-    <div class="detail-meta">Posted by {{ post.author.name.username|default:"Former member" }} · {{ post.created_at|date:"M j, Y" }}</div>
+    <div class="sh-detail-body">{{ post.description|linebreaksbr }}</div>
+
+    {% if post.link %}
+      <a class="link-card" href="{{ post.link }}" target="_blank" rel="noopener noreferrer">
+        <svg class="ic"><use href="#i-link"/></svg>
+        <span>{{ post.link_domain }}</span>
+        <em>Open link</em>
+      </a>
+    {% endif %}
+
     {% if post.author == user %}
       <div class="owner-actions">
         <a class="button-light" href="{% url 'edit_post' post.pk %}">Edit</a>
         <a class="button-light" href="{% url 'delete_post' post.pk %}">Delete</a>
       </div>
     {% endif %}
-    <div class="detail-description">{{ post.description|linebreaksbr }}</div>
-    {% if post.deadline %}
-      <div class="detail-info"><strong>Deadline</strong><span>{% if post.is_expired %}{{ post.deadline|date:"M j, Y" }} (expired){% else %}{{ post.deadline|date:"M j, Y" }}{% endif %}</span></div>
-    {% endif %}
-    {% if post.link %}
-      <a class="button button-dark" href="{{ post.link }}" target="_blank" rel="noopener noreferrer">Open source / useful link ↗</a>
-    {% endif %}
+
     <p class="trust-note">Stay cautious with requests for money or personal information. Check important details with the original source.</p>
+
+    <section class="comments-soon">
+      <h2>Comments</h2>
+      <p>Comments are coming soon.</p>
+    </section>
   </article>
+
+  {% include "partials/app_rail.html" %}
 </div>
 {% endblock %}

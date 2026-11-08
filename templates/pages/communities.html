@@ -1,0 +1,42 @@
+{% extends "pages/base_marketing.html" %}
+{% block title %}Communities · Kuip{% endblock %}
+
+{% block content %}
+<section class="mk-page-head">
+  <p class="pill-label reveal"><span class="pulse"></span> Communities</p>
+  <h1 class="reveal" style="--d:.05s">Find your corner of the internet.</h1>
+  <p class="reveal" style="--d:.1s">Whatever you're into, there's room for it on Kuip. Here's a taste of the kinds of communities people will be able to build and join.</p>
+</section>
+
+<p class="early-note reveal"><strong>Early access.</strong> Sign-up and posting work today. Communities you can create and join are next on the roadmap.</p>
+
+<section class="mk-section">
+  <div class="bento">
+    <article class="space-card bg-sky reveal"><span class="space-emoji">💻</span><h3>Programming &amp; Tech</h3><p>Code, gadgets, tools and the bug that ruined your weekend.</p></article>
+    <article class="space-card bg-pink reveal" style="--d:.06s"><span class="space-emoji">🎌</span><h3>Anime &amp; Manga</h3><p>Recommendations, theories and arguments about who's the strongest.</p></article>
+    <article class="space-card bg-purple reveal" style="--d:.12s"><span class="space-emoji">🎮</span><h3>Gaming</h3><p>Console, PC, mobile, and what everyone's playing this week.</p></article>
+    <article class="space-card bg-coral reveal"><span class="space-emoji">🎧</span><h3>Music</h3><p>New releases, old favourites and the playlist you can't stop sharing.</p></article>
+    <article class="space-card bg-sun reveal" style="--d:.06s"><span class="space-emoji">⚽</span><h3>Sports</h3><p>Match-day talk, hot takes and fantasy-league trash talk.</p></article>
+    <article class="space-card bg-sky reveal" style="--d:.12s"><span class="space-emoji">💼</span><h3>Careers &amp; Opportunities</h3><p>Jobs, internships, gigs and honest career advice.</p></article>
+    <article class="space-card bg-pink reveal"><span class="space-emoji">📚</span><h3>Education</h3><p>Study tips, resources and help when the course gets hard.</p></article>
+    <article class="space-card bg-sun reveal" style="--d:.06s"><span class="space-emoji">🚀</span><h3>Entrepreneurship</h3><p>Ideas, side hustles and lessons from people building things.</p></article>
+    <article class="space-card bg-coral reveal" style="--d:.12s"><span class="space-emoji">😂</span><h3>Memes &amp; Random</h3><p>Jokes, shower thoughts and beautiful nonsense.</p></article>
+  </div>
+</section>
+
+<section class="mk-section">
+  <div class="dark-cta reveal">
+    <div>
+      <h2>Got a community in mind?</h2>
+      <p>Join now and be there when communities open.</p>
+      {% if user.is_authenticated %}
+        <a class="button-purple" href="{% url 'dashboard' %}">Open your feed <span class="arrow">→</span></a>
+      {% else %}
+        <a class="button-purple" href="{% url 'signup' %}">Join Kuip <span class="arrow">→</span></a>
+      {% endif %}
+    </div>
+    <span class="glow g1"></span>
+    <span class="glow g2"></span>
+  </div>
+</section>
+{% endblock %}

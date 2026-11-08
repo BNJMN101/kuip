@@ -1,0 +1,29 @@
+<aside class="sh-rail">
+  <section class="rail-card">
+    <div class="rail-cover"></div>
+    <div class="rail-body">
+      <h3>Home</h3>
+      <p>Your front page of Kuip. Catch up on what people are sharing, or start something yourself.</p>
+      <a class="sh-btn" href="{% url 'create_post' %}">Create post</a>
+      <span class="sh-btn is-disabled" aria-disabled="true">Create community (soon)</span>
+    </div>
+  </section>
+
+  <section class="rail-card">
+    <div class="rail-body">
+      <h3 class="rail-title">Kuip rules</h3>
+      <ol class="rules">
+        <li>Be decent to people</li>
+        <li>Keep it real</li>
+        <li>Protect privacy</li>
+      </ol>
+      <a class="rail-link" href="{% url 'guidelines' %}">Read the full guidelines</a>
+    </div>
+  </section>
+
+  <p class="rail-foot">
+    <a href="{% url 'about' %}">About</a>
+    <a href="{% url 'how_it_works' %}">How it works</a>
+    <a href="{% url 'guidelines' %}">Guidelines</a>
+  </p>
+</aside>

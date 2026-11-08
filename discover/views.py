@@ -10,12 +10,16 @@ def dashboard(request):
     posts = Post.objects.filter(is_active=True).select_related("author")
     category = request.GET.get("category", "").strip()
     query = request.GET.get("q", "").strip()
+    mine = request.GET.get("mine") == "1"
 
-    valid_categories = {choice[0] for choice in Post.Category.choices}
-    if category in valid_categories:
+    labels = dict(Post.Category.choices)
+    if category in labels:
         posts = posts.filter(category=category)
     else:
         category = ""
+
+    if mine:
+        posts = posts.filter(author=request.user)
 
     if query:
         posts = posts.filter(Q(title__icontains=query) | Q(description__icontains=query))
@@ -23,8 +27,9 @@ def dashboard(request):
     return render(request, "discover/dashboard.html", {
         "posts": posts,
         "selected_category": category,
+        "selected_label": labels.get(category, ""),
         "query": query,
-        "categories": Post.Category.choices,
+        "mine": mine,
     })
 
 def welcome(request):
@@ -41,7 +46,11 @@ def create_post(request):
             messages.success(request, "Your post is live in the community feed.")
             return redirect("post_detail", pk=post.pk)
     else:
-        form = PostForm()
+        initial = {}
+        topic = request.GET.get("type", "")
+        if topic in dict(Post.Category.choices):
+            initial["category"] = topic
+        form = PostForm(initial=initial)
     return render(request, "discover/create_post.html", {"form": form})
 
 @login_required

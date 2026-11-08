@@ -1,137 +1,168 @@
 {% extends "pages/base_marketing.html" %}
-{% block title %}Kuip: everything useful, shared by people around you{% endblock %}
+{% block title %}Kuip: find your people, share your world{% endblock %}
 
 {% block content %}
-<section class="mk-hero">
-  <div class="mk-hero-copy">
-    <p class="pill-label reveal"><span class="pulse"></span> Built for everyday people and students in Nigeria</p>
-    <h1 class="reveal" style="--d:.05s">Everything useful, <span class="muted-heading">shared by people around you.</span></h1>
-    <p class="lead reveal" style="--d:.1s">Opportunities, helpful resources and honest requests from your community, all in one feed.</p>
-    <div class="hero-actions reveal" style="--d:.15s">
+<section class="lx-hero">
+  <div class="lx-copy">
+    <p class="pill-label reveal"><span class="pulse"></span> Your corner of the internet</p>
+
+    <h1 class="lx-title">
+      <span class="line"><span class="word" style="--i:0">Find your <em>people.<svg class="scribble" viewBox="0 0 220 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 8 C 45 2, 85 11, 120 6 S 190 3, 217 7"/></svg></em></span></span>
+      <span class="line"><span class="word" style="--i:1">Share your <em>world.</em></span></span>
+    </h1>
+
+    <p class="lx-sub reveal" style="--d:.25s">Communities for everything: code, anime, football, jollof debates, side hustles, big questions and random thoughts. Serious or silly, there's a seat for you.</p>
+
+    <div class="lx-actions reveal" style="--d:.3s">
       {% if user.is_authenticated %}
-        <a class="button-dark" href="{% url 'dashboard' %}">Open your feed</a>
+        <a class="button-purple" href="{% url 'dashboard' %}">Open your feed <span class="arrow">→</span></a>
       {% else %}
-        <a class="button-dark" href="{% url 'signup' %}">Get started</a>
-        <a class="button-light" href="{% url 'how_it_works' %}">See how it works</a>
+        <a class="button-purple" href="{% url 'signup' %}">Join Kuip <span class="arrow">→</span></a>
+        <a class="button-light" href="{% url 'communities' %}">Explore communities</a>
       {% endif %}
     </div>
-    <ul class="trust-list reveal" style="--d:.2s">
+
+    <ul class="trust-list reveal" style="--d:.35s">
       <li>Free to join</li>
-      <li>Search by category</li>
-      <li>You control your posts</li>
+      <li>Takes about a minute</li>
+      <li>Be yourself</li>
     </ul>
   </div>
 
-  <div class="mk-hero-visual reveal" style="--d:.15s" data-tabs>
-    <span class="orb orb-1"></span>
-    <span class="orb orb-2"></span>
-    <span class="orb orb-3"></span>
+  <div class="lx-visual reveal" style="--d:.1s">
+    <span class="ring" aria-hidden="true"></span>
+    <span class="float-pill" data-depth="14"><span class="pulse"></span> Connect · Share · Explore</span>
 
-    <div class="preview">
-      <div class="tab-row" role="tablist" aria-label="Kinds of posts">
-        <button type="button" class="tab active" role="tab" aria-selected="true" data-tab="opportunity">✦ Opportunities</button>
-        <button type="button" class="tab" role="tab" aria-selected="false" data-tab="discover">◈ Discover</button>
-        <button type="button" class="tab" role="tab" aria-selected="false" data-tab="request">↗ Requests</button>
+    <div class="blob-photo">
+      <span class="fchip fc-1" data-depth="22">Gaming</span>
+      <span class="fchip fc-2" data-depth="30">Anime &amp; Manga</span>
+      <span class="fchip fc-3" data-depth="18">Programming</span>
+      <span class="fchip fc-4" data-depth="26">Football</span>
+      <span class="fchip fc-5" data-depth="34">Memes &amp; Random</span>
+
+      <div class="fcard" data-depth="10">
+        <span class="category-tag">Anime &amp; Manga</span>
+        <strong>Best anime to start with?</strong>
+        <small>Reply →</small>
       </div>
-
-      <div data-panel="opportunity">
-        <article class="mock-card">
-          <div class="card-top"><span class="category-tag">✦ Opportunity</span><span class="deadline">Due Nov 20</span></div>
-          <h3>Junior web developer internship</h3>
-          <p>Remote, 3 months. Open to final-year students.</p>
-        </article>
-        <article class="mock-card">
-          <div class="card-top"><span class="category-tag">✦ Opportunity</span><span class="deadline">Due Dec 2</span></div>
-          <h3>Undergraduate scholarship applications</h3>
-          <p>Applications are open for the new session.</p>
-        </article>
-      </div>
-
-      <div data-panel="discover" hidden>
-        <article class="mock-card">
-          <div class="card-top"><span class="category-tag">◈ Discover</span></div>
-          <h3>A free Python course with certificates</h3>
-          <p>Beginner friendly, self-paced.</p>
-        </article>
-        <article class="mock-card">
-          <div class="card-top"><span class="category-tag">◈ Discover</span></div>
-          <h3>Quiet study spots on campus</h3>
-          <p>Where to go when the hostel gets loud.</p>
-        </article>
-      </div>
-
-      <div data-panel="request" hidden>
-        <article class="mock-card">
-          <div class="card-top"><span class="category-tag">↗ Request</span></div>
-          <h3>Looking for a used laptop</h3>
-          <p>Budget around ₦250,000. Any leads?</p>
-        </article>
-        <article class="mock-card">
-          <div class="card-top"><span class="category-tag">↗ Request</span></div>
-          <h3>Past questions for CSC 201</h3>
-          <p>Does anyone have last year's papers?</p>
-        </article>
-      </div>
-
-      <p class="preview-note">Example posts, to show what Kuip feels like.</p>
     </div>
   </div>
 </section>
 
-<section class="mk-section" id="kinds">
-  <div class="section-head reveal">
-    <div>
-      <p class="eyebrow">What you'll find</p>
-      <h2>Three kinds of useful.</h2>
+<section class="tiles">
+  <div class="reveal">
+    <article class="tile">
+      <span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.2c2.6.3 4.5 2.6 4.5 5.3"/></svg></span>
+      <h3>Find your community</h3>
+      <p>Join groups built around the things you love.</p>
+    </article>
+  </div>
+  <div class="reveal" style="--d:.08s">
+    <article class="tile">
+      <span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v12H9l-5 4z"/></svg></span>
+      <h3>Start a discussion</h3>
+      <p>Share a thought, a take or a half-finished idea.</p>
+    </article>
+  </div>
+  <div class="reveal" style="--d:.16s">
+    <article class="tile">
+      <span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8"/><circle cx="12" cy="17" r=".6"/></svg></span>
+      <h3>Ask anything</h3>
+      <p>Someone out there knows. Or has strong opinions.</p>
+    </article>
+  </div>
+  <div class="reveal" style="--d:.24s">
+    <article class="tile">
+      <span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v4h3l7 4V6L7 10z"/><path d="M17 9.5a4 4 0 0 1 0 5"/></svg></span>
+      <h3>Share and spot opportunities</h3>
+      <p>Gigs, announcements and openings, right next to the memes.</p>
+    </article>
+  </div>
+</section>
+
+<section class="mk-section lx-stack-section">
+  <div class="lx-stack-copy reveal">
+    <p class="pill-label">Explore Kuip</p>
+    <h2>A place for everything.</h2>
+    <p>Programming, anime, football, jollof debates, side hustles, careers, big questions and random thoughts. If people care about it, it belongs here.</p>
+    <a class="button-purple" href="{% url 'communities' %}">Explore communities <span class="arrow">→</span></a>
+  </div>
+
+  <div class="lx-stack reveal" style="--d:.1s">
+    <article class="post-mock pm-1" data-tilt>
+      <div class="pm-head"><span class="author-avatar">A</span><div><strong>ada</strong><small>Anime &amp; Manga</small></div></div>
+      <h3>The best anime to watch right now?</h3>
+      <p>I just finished Attack on Titan. What should I watch next?</p>
+      <div class="pm-art art-1"></div>
+      <div class="pm-foot"><span>♡ Like</span><span>💬 Reply</span><span>⚑ Save</span></div>
+    </article>
+    <article class="post-mock pm-2" data-tilt>
+      <div class="pm-head"><span class="author-avatar">T</span><div><strong>tunde</strong><small>Programming</small></div></div>
+      <h3>Which project taught you the most?</h3>
+      <p>Tutorials only got me so far. What was the build that made it click for you?</p>
+      <div class="pm-art art-2"></div>
+      <div class="pm-foot"><span>♡ Like</span><span>💬 Reply</span><span>⚑ Save</span></div>
+    </article>
+    <article class="post-mock pm-3" data-tilt>
+      <div class="pm-head"><span class="author-avatar">K</span><div><strong>kemi</strong><small>Memes &amp; Random</small></div></div>
+      <h3>Party jollof or smoky jollof?</h3>
+      <p>Choose wisely. Your answer will be remembered.</p>
+      <div class="pm-art art-3"></div>
+      <div class="pm-foot"><span>♡ Like</span><span>💬 Reply</span><span>⚑ Save</span></div>
+    </article>
+    <p class="stack-note">Example posts, to show how Kuip feels.</p>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-group" data-marquee>
+      <span class="chip c-purple">Programming</span>
+      <span class="chip c-pink">Anime &amp; Manga</span>
+      <span class="chip c-sky">Gaming</span>
+      <span class="chip c-sun">Music</span>
+      <span class="chip c-coral">Football</span>
+      <span class="chip c-purple">Careers</span>
+      <span class="chip c-pink">Memes &amp; Random</span>
+      <span class="chip c-sky">Entrepreneurship</span>
+      <span class="chip c-sun">Education</span>
+      <span class="chip c-coral">Jollof debates</span>
+      <span class="chip c-purple">Tech</span>
     </div>
   </div>
-  <div class="feature-grid">
-    <article class="feature-card reveal">
-      <span class="feature-icon">✦</span>
-      <h3>Opportunities</h3>
-      <p>Internships, scholarships, gigs and events, with deadlines so you never miss out.</p>
-    </article>
-    <article class="feature-card reveal" style="--d:.08s">
-      <span class="feature-icon">◈</span>
-      <h3>Discover</h3>
-      <p>Resources, tools and tips that are worth knowing about, shared by people who've used them.</p>
-    </article>
-    <article class="feature-card reveal" style="--d:.16s">
-      <span class="feature-icon">↗</span>
-      <h3>Requests</h3>
-      <p>Need something? Ask, and let people who know point you the right way.</p>
-    </article>
+</div>
+
+<section class="mk-section">
+  <div class="duo">
+    <div class="duo-panel duo-serious reveal">
+      <p class="eyebrow">When it's serious</p>
+      <h2>Real answers from real people.</h2>
+      <div class="bubble">Does anyone know how to prepare for a first job interview?</div>
+      <div class="bubble me">Practise out loud. Record yourself on your phone. It's awkward, but it works.</div>
+    </div>
+    <div class="duo-panel duo-silly reveal" style="--d:.1s">
+      <p class="eyebrow eyebrow-dark">When it's silly</p>
+      <h2>Because we all need a laugh.</h2>
+      <div class="bubble">Hot take: Sunday rice is better than rice on any other day.</div>
+      <div class="bubble me">Say it louder 😭</div>
+      <div class="bubble typing"><i></i><i></i><i></i></div>
+    </div>
   </div>
 </section>
 
 <section class="mk-section">
-  <div class="mk-band reveal">
+  <div class="dark-cta reveal">
     <div>
-      <p class="eyebrow">Up and running in a minute</p>
-      <h2>Join, look around, add something.</h2>
-      <p>No long setup. Make an account, browse the feed, and share the first useful thing you know.</p>
-      <a class="button-light" href="{% url 'how_it_works' %}">How it works →</a>
-    </div>
-    <ol class="mk-steps">
-      <li><div><strong>Create your account</strong><span>Username, email and a password.</span></div></li>
-      <li><div><strong>Explore the feed</strong><span>Search or filter by category.</span></div></li>
-      <li><div><strong>Share or ask</strong><span>Post something useful, or make a request.</span></div></li>
-    </ol>
-  </div>
-</section>
-
-<section class="mk-section">
-  <div class="community-band cta-band reveal">
-    <h2>Your community is waiting.</h2>
-    <p>Create a free account and see what people are sharing today.</p>
-    <div class="hero-actions">
+      <h2>Be part of Kuip today.</h2>
+      <p>Find your people. Share your world.</p>
       {% if user.is_authenticated %}
-        <a class="button-dark" href="{% url 'dashboard' %}">Open your feed</a>
+        <a class="button-purple" href="{% url 'dashboard' %}">Open your feed <span class="arrow">→</span></a>
       {% else %}
-        <a class="button-dark" href="{% url 'signup' %}">Get started</a>
-        <a class="button-light" href="{% url 'login' %}">Log in</a>
+        <a class="button-purple" href="{% url 'signup' %}">Create your account <span class="arrow">→</span></a>
       {% endif %}
     </div>
+    <span class="glow g1"></span>
+    <span class="glow g2"></span>
   </div>
 </section>
 {% endblock %}
